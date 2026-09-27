@@ -796,7 +796,7 @@ a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-
           <option>Not sure — please advise</option>
         </select>
         <button class="btn btn--primary btn--block btn--lg" type="submit">Request my free inspection</button>
-        <p class="note">Or WhatsApp us on <a href="https://wa.me/917981057003" style="color:#7FE7D8;font-weight:700">079810 57003</a></p>
+        <p class="note">Opens WhatsApp with your details filled in — just tap Send.</p>
       </form>
     </div>
   </div>
@@ -1186,7 +1186,7 @@ a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-
           <label for="f-msg">Describe the problem</label>
           <textarea id="f-msg" name="message" placeholder="Where is the leak? How long has it been there? Roughly how large is the area?"></textarea>
         </div>
-        <button class="btn btn--primary btn--block btn--lg" type="submit">Send request</button>
+        <button class="btn btn--wa btn--block btn--lg" type="submit">Send on WhatsApp</button>
         <p class="form-note">Prefer to talk? Call <a href="tel:+917981057003" style="color:var(--brand-deep);font-weight:700">079810 57003</a></p>
       </form>
     </div>
@@ -1387,11 +1387,9 @@ a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-
     });
   }
 
-  /* ---- forms → emailed to the business via FormSubmit ----
-     The very first submission sends an activation email to the inbox below;
-     click "Activate Form" in it once and every request after that is delivered.
-     If sending fails, the visitor is offered WhatsApp with their details filled in. */
-  var FORM_ENDPOINT = 'https://formsubmit.co/ajax/gangawaterproofing95@gmail.com';
+  /* ---- forms → WhatsApp ----
+     Validates the details, then opens a WhatsApp chat with 079810 57003 with the
+     request pre-written. The visitor only has to tap Send. */
 
   function handleForm(form){
     if(!form) return;
@@ -1427,33 +1425,12 @@ a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-
                  (msg ? '\nDetails: ' + msg : '');
       var waLink = 'https://wa.me/917981057003?text=' + encodeURIComponent(text);
 
-      var original = btn.innerHTML;
-      btn.innerHTML = 'Sending…';
-      btn.disabled = true;
-      show('');
+      // Open WhatsApp with the request typed out; if a popup blocker stops the new tab, go there directly
+      var win = window.open(waLink, '_blank');
+      if(win){ win.opener = null; } else { window.location.href = waLink; }
 
-      fetch(FORM_ENDPOINT, {
-        method:'POST',
-        headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body:JSON.stringify({
-          _subject:'New inspection request — ' + name + ' (' + service + ')',
-          _template:'table',
-          _captcha:'false',
-          Name:name, Phone:phone, Service:service,
-          Locality:area || '—', Details:msg || '—',
-          'Sent from':form.id === 'heroForm' ? 'Top of page form' : 'Contact section form'
-        })
-      })
-      .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, body:j}; }); })
-      .then(function(res){
-        if(!res.ok || String(res.body.success) !== 'true') throw new Error(res.body.message || 'Send failed');
-        form.reset();
-        show('Thank you, ' + name.split(' ')[0] + '! We\'ve got your request and will call you back the same working day.','ok');
-      })
-      .catch(function(){
-        show('Sorry, we couldn\'t send that just now. <a href="' + waLink + '" target="_blank" rel="noopener">Send it on WhatsApp instead</a> or call <a href="tel:+917981057003">079810 57003</a>.','error');
-      })
-      .then(function(){ btn.innerHTML = original; btn.disabled = false; });
+      form.reset();
+      show('WhatsApp is opening with your request — just tap <b>Send</b>. Didn\'t open? <a href="' + waLink + '" target="_blank" rel="noopener">Tap here</a>.','ok');
     });
   }
   handleForm(document.getElementById('heroForm'));
