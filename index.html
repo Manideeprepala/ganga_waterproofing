@@ -301,7 +301,7 @@ body.menu-open .drawer__panel{transform:none}
   background:var(--brand-soft); color:var(--brand-deep);
 }
 .strip__item b{display:block; color:var(--ink); font-size:.97rem; line-height:1.3; font-weight:800}
-.strip__item span{font-size:.85rem; color:var(--body-soft); display:block; margin-top:3px; line-height:1.45}
+.strip__item b + span{font-size:.85rem; color:var(--body-soft); display:block; margin-top:3px; line-height:1.45}
 
 /* ============================================================
    SERVICE CARDS
@@ -451,7 +451,7 @@ body.menu-open .drawer__panel{transform:none}
   background:linear-gradient(145deg,var(--brand),var(--brand-deep));
 }
 .quote__by b{display:block; color:var(--ink); font-size:.94rem; font-weight:800}
-.quote__by span{font-size:.8rem; color:var(--body-soft)}
+.quote__by b + span{font-size:.8rem; color:var(--body-soft)}
 
 /* ============================================================
    FAQ
@@ -497,7 +497,7 @@ body.menu-open .drawer__panel{transform:none}
 a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-shadow:var(--shadow-s)}
 .contact-item__ico{width:44px;height:44px;border-radius:13px;flex:none;display:grid;place-items:center;background:var(--brand-soft);color:var(--brand-deep)}
 .contact-item b{display:block; color:var(--ink); font-size:.98rem; font-weight:800}
-.contact-item span{font-size:.9rem; color:var(--body-soft); display:block; margin-top:2px}
+.contact-item b + span{font-size:.9rem; color:var(--body-soft); display:block; margin-top:2px}
 
 .form-card{background:#fff; border:1px solid var(--line); border-radius:var(--radius-xl); padding:clamp(26px,3.4vw,40px); box-shadow:var(--shadow)}
 .field{display:grid; gap:7px; margin-bottom:16px}
@@ -514,6 +514,17 @@ a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-
 .field select{appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234A5A6E' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 16px center}
 .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px}
 .form-note{font-size:.8rem; color:var(--body-soft); text-align:center; margin-top:14px}
+
+/* Form feedback */
+.hp{position:absolute; left:-9999px; width:1px; height:1px; opacity:0}
+.form-status{font-size:.9rem; font-weight:600; line-height:1.5; text-align:center}
+.form-status:empty{display:none}
+.form-status a{text-decoration:underline; font-weight:700}
+#mainForm .form-status{margin-top:14px}
+.form-status.is-ok{color:#008C79}
+.form-status.is-error{color:#C8373D}
+.qform .form-status.is-ok{color:#7FE7D8}
+.qform .form-status.is-error{color:#FFB4B4}
 
 /* ============================================================
    CTA BANNER
@@ -617,6 +628,51 @@ a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-
   .hero__actions .btn{flex:1 1 100%}
   .cta__actions .btn{flex:1 1 100%}
   .media{aspect-ratio:4/3.6}
+
+  /* Tighter vertical rhythm so the page isn't endless on a phone */
+  .section{padding-block:56px}
+  .section-head{margin-bottom:30px}
+  .hero{padding-block:44px 84px}
+  .hero__actions{margin-top:26px}
+  .hero__trust{margin-top:28px; padding-top:22px}
+  .topbar{display:none} /* phone number is already in the sticky call bar */
+
+  /* 16px inputs stop iOS Safari zooming in when a field is tapped */
+  .qform input,.qform select,.qform textarea,
+  .field input,.field select,.field textarea{font-size:16px}
+
+  /* Long email address was pushing the contact cards off-screen */
+  .contact-grid > *,.contact-item > *{min-width:0}
+  .contact-item b{overflow-wrap:anywhere}
+  .contact-item{padding:16px}
+
+  /* Service cards: compact */
+  .card{padding:22px 20px}
+  .card__icon{width:46px; height:46px; border-radius:13px; margin-bottom:14px}
+  .card:hover{transform:none}
+
+  /* Steps: number beside the text instead of stacked and centred */
+  .step{display:grid; grid-template-columns:48px 1fr; column-gap:16px; text-align:left; padding:0}
+  .step__n{grid-row:span 2; width:48px; height:48px; font-size:1rem; margin:0; box-shadow:0 0 0 6px var(--bg-alt), 0 8px 18px rgba(10,77,140,.22)}
+  .step h3{margin:4px 0 4px}
+  .steps{gap:22px}
+
+  /* Project tiles: shorter */
+  .gallery{gap:14px}
+  .shot{aspect-ratio:16/10; padding:18px}
+
+  /* Reviews: swipeable row instead of a tall stack */
+  .quotes{display:flex; overflow-x:auto; scroll-snap-type:x mandatory; gap:14px;
+    margin-inline:calc(-1 * var(--gutter)); padding:4px var(--gutter) 10px; scrollbar-width:none}
+  .quotes::-webkit-scrollbar{display:none}
+  .quote{flex:0 0 86%; scroll-snap-align:center; padding:24px 22px}
+  .quotes .reveal{opacity:1; transform:none}
+
+  .faq__q{padding:17px 18px}
+  .faq__a p{padding:0 18px 18px}
+  .strip__in{gap:20px 14px}
+  .strip__icon{width:36px; height:36px; border-radius:10px}
+  .strip__item{gap:10px}
 }
 </style>
 </head>
@@ -726,6 +782,7 @@ a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-
       <h3>Get a free site inspection</h3>
       <p class="small">Tell us where the problem is. We'll call back the same day and visit at a time that suits you.</p>
       <form class="qform" id="heroForm" novalidate>
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <input type="text" name="name" placeholder="Your name" required autocomplete="name">
         <input type="tel" name="phone" placeholder="Mobile number" required autocomplete="tel" inputmode="tel">
         <select name="service" required>
@@ -1089,7 +1146,7 @@ a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-
         </a>
         <a class="contact-item" href="mailto:gangawaterproofing95@gmail.com">
           <span class="contact-item__ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg></span>
-          <div><b>gangawaterproofing95@gmail.com</b><span>Send photos of the affected area for a faster estimate</span></div>
+          <div><b>gangawaterproofing95<wbr>@gmail.com</b><span>Send photos of the affected area for a faster estimate</span></div>
         </a>
         <div class="contact-item">
           <span class="contact-item__ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span>
@@ -1103,6 +1160,7 @@ a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-
       <p class="small" style="margin-bottom:24px">We'll get back to you the same working day.</p>
 
       <form id="mainForm" novalidate>
+        <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
         <div class="field-row">
           <div class="field"><label for="f-name">Your name</label><input id="f-name" name="name" type="text" placeholder="Full name" required autocomplete="name"></div>
           <div class="field"><label for="f-phone">Mobile number</label><input id="f-phone" name="phone" type="tel" placeholder="10-digit number" required autocomplete="tel" inputmode="tel"></div>
@@ -1329,11 +1387,23 @@ a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-
     });
   }
 
-  /* ---- forms → WhatsApp handoff (no backend needed) ----
-     Replace this handler with a real POST to your form endpoint
-     (Formspree / Web3Forms / your own PHP mailer) when you have one. */
+  /* ---- forms → emailed to the business via FormSubmit ----
+     The very first submission sends an activation email to the inbox below;
+     click "Activate Form" in it once and every request after that is delivered.
+     If sending fails, the visitor is offered WhatsApp with their details filled in. */
+  var FORM_ENDPOINT = 'https://formsubmit.co/ajax/gangawaterproofing95@gmail.com';
+
   function handleForm(form){
     if(!form) return;
+    var btn = form.querySelector('button[type=submit]');
+    var status = document.createElement('p');
+    status.className = 'form-status';
+    status.setAttribute('role','status');
+    status.setAttribute('aria-live','polite');
+    btn.insertAdjacentElement('afterend', status);
+
+    function show(msg, kind){ status.innerHTML = msg; status.className = 'form-status' + (kind ? ' is-' + kind : ''); }
+
     form.addEventListener('submit', function(e){
       e.preventDefault();
       var data = new FormData(form);
@@ -1342,13 +1412,12 @@ a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-
       var service = (data.get('service')||'').toString().trim();
       var area = (data.get('area')||'').toString().trim();
       var msg = (data.get('message')||'').toString().trim();
+      var digits = phone.replace(/\D/g,'').replace(/^(91|0)(?=\d{10}$)/,'');
 
-      if(!name || !phone || !service){
-        var first = form.querySelector('[required]:invalid') ||
-                    (!name ? form.querySelector('[name=name]') : !phone ? form.querySelector('[name=phone]') : form.querySelector('[name=service]'));
-        if(first) first.focus();
-        return;
-      }
+      if(!name){ show('Please enter your name.','error'); form.querySelector('[name=name]').focus(); return; }
+      if(!/^[6-9]\d{9}$/.test(digits)){ show('Please enter a valid 10-digit mobile number.','error'); form.querySelector('[name=phone]').focus(); return; }
+      if(!service){ show('Please choose what needs waterproofing.','error'); form.querySelector('[name=service]').focus(); return; }
+      if(data.get('_honey')) return; // spam bot filled the hidden field
 
       var text = 'Hi Ganga Waterproofing, I would like a free inspection.\n\n' +
                  'Name: ' + name + '\n' +
@@ -1356,16 +1425,35 @@ a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-
                  'Service: ' + service +
                  (area ? '\nLocality: ' + area : '') +
                  (msg ? '\nDetails: ' + msg : '');
+      var waLink = 'https://wa.me/917981057003?text=' + encodeURIComponent(text);
 
-      window.open('https://wa.me/917981057003?text=' + encodeURIComponent(text), '_blank', 'noopener');
+      var original = btn.innerHTML;
+      btn.innerHTML = 'Sending…';
+      btn.disabled = true;
+      show('');
 
-      var btn = form.querySelector('button[type=submit]');
-      if(btn){
-        var original = btn.innerHTML;
-        btn.innerHTML = 'Opening WhatsApp…';
-        btn.disabled = true;
-        setTimeout(function(){ btn.innerHTML = original; btn.disabled = false; form.reset(); }, 2200);
-      }
+      fetch(FORM_ENDPOINT, {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({
+          _subject:'New inspection request — ' + name + ' (' + service + ')',
+          _template:'table',
+          _captcha:'false',
+          Name:name, Phone:phone, Service:service,
+          Locality:area || '—', Details:msg || '—',
+          'Sent from':form.id === 'heroForm' ? 'Top of page form' : 'Contact section form'
+        })
+      })
+      .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, body:j}; }); })
+      .then(function(res){
+        if(!res.ok || String(res.body.success) !== 'true') throw new Error(res.body.message || 'Send failed');
+        form.reset();
+        show('Thank you, ' + name.split(' ')[0] + '! We\'ve got your request and will call you back the same working day.','ok');
+      })
+      .catch(function(){
+        show('Sorry, we couldn\'t send that just now. <a href="' + waLink + '" target="_blank" rel="noopener">Send it on WhatsApp instead</a> or call <a href="tel:+917981057003">079810 57003</a>.','error');
+      })
+      .then(function(){ btn.innerHTML = original; btn.disabled = false; });
     });
   }
   handleForm(document.getElementById('heroForm'));
