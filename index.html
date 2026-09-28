@@ -428,6 +428,8 @@ body.menu-open .drawer__panel{transform:none}
 }
 .shot::after{content:""; position:absolute; inset:0; background:linear-gradient(to top,rgba(5,15,28,.75) 0%, transparent 58%)}
 .shot:hover{transform:translateY(-5px); box-shadow:var(--shadow)}
+.shot img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .5s cubic-bezier(.3,0,.2,1)}
+.shot:hover img{transform:scale(1.04)}
 .shot__meta{position:relative; z-index:1}
 .shot__meta b{display:block; color:#fff; font-weight:800; font-size:1.02rem; letter-spacing:-.015em}
 .shot__meta span{font-size:.82rem; color:rgba(255,255,255,.66); font-weight:600}
@@ -981,17 +983,17 @@ a.contact-item:hover{border-color:var(--brand); transform:translateY(-2px); box-
     <div class="section-head center reveal">
       <span class="eyebrow">Recent work</span>
       <h2 class="h2">Jobs we've finished around Hyderabad</h2>
-      <p class="lead">Swap these panels for your own before-and-after photos — they're the strongest proof you have.</p>
+      <p class="lead">A few of the homes, apartments and industrial sites we've waterproofed across Hyderabad.</p>
     </div>
 
-    <!-- ▸ REPLACE each .shot with: <a class="shot" href="..."><img src="images/project-1.jpg" alt="..."><div class="shot__meta">…</div></a> -->
+    <!-- ▸ PHOTOS: put your pictures in images/projects/ using these exact names: terrace.jpg, bathroom.jpg, warehouse.jpg, exterior-wall.jpg, basement.jpg, balcony.jpg. A tile with no photo keeps its coloured background. -->
     <div class="gallery">
-      <div class="shot reveal"><div class="shot__meta"><b>Terrace re-coating</b><span>3BHK independent house · Ramanthapur</span></div></div>
-      <div class="shot reveal"><div class="shot__meta"><b>Bathroom sunken slab</b><span>Apartment block · Kukatpally</span></div></div>
-      <div class="shot reveal"><div class="shot__meta"><b>Warehouse roof sheeting</b><span>Industrial unit · Outer Ring Road</span></div></div>
-      <div class="shot reveal"><div class="shot__meta"><b>Exterior wall treatment</b><span>Villa community · Hyderabad</span></div></div>
-      <div class="shot reveal"><div class="shot__meta"><b>Basement injection grouting</b><span>Commercial building · Hyderabad</span></div></div>
-      <div class="shot reveal"><div class="shot__meta"><b>Balcony slope correction</b><span>High-rise apartment · Hyderabad</span></div></div>
+      <div class="shot reveal"><img src="images/projects/terrace.jpg" alt="Terrace re-coating" loading="lazy" onerror="this.remove()"><div class="shot__meta"><b>Terrace re-coating</b><span>3BHK independent house · Ramanthapur</span></div></div>
+      <div class="shot reveal"><img src="images/projects/bathroom.jpg" alt="Bathroom sunken slab" loading="lazy" onerror="this.remove()"><div class="shot__meta"><b>Bathroom sunken slab</b><span>Apartment block · Kukatpally</span></div></div>
+      <div class="shot reveal"><img src="images/projects/warehouse.jpg" alt="Warehouse flooring" loading="lazy" onerror="this.remove()"><div class="shot__meta"><b>Warehouse Flooring</b><span>Industrial unit · Outer Ring Road</span></div></div>
+      <div class="shot reveal"><img src="images/projects/exterior-wall.jpg" alt="Exterior wall treatment" loading="lazy" onerror="this.remove()"><div class="shot__meta"><b>Exterior wall treatment</b><span>Villa community · Hyderabad</span></div></div>
+      <div class="shot reveal"><img src="images/projects/basement.jpg" alt="Basement injection grouting" loading="lazy" onerror="this.remove()"><div class="shot__meta"><b>Basement injection grouting</b><span>Commercial building · Hyderabad</span></div></div>
+      <div class="shot reveal"><img src="images/projects/balcony.jpg" alt="Balcony epoxy grouting" loading="lazy" onerror="this.remove()"><div class="shot__meta"><b>Balcony Epoxy Grouting</b><span>High-rise apartment · Hyderabad</span></div></div>
     </div>
   </div>
 </section>
