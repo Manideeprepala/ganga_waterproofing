@@ -100,3 +100,17 @@
   .process li{padding-left:56px}
   .rel-card:hover,.hub-card:hover{transform:none}
 }
+
+/* Services dropdown (desktop) + services list in the mobile drawer */
+.nav__dd{position:relative}
+.nav__dd > a{display:inline-flex; align-items:center; gap:5px}
+.nav__menu{position:absolute; top:100%; left:50%; z-index:95; min-width:300px; padding:8px; display:grid;
+  background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:var(--shadow);
+  opacity:0; visibility:hidden; transform:translate(-50%,14px); transition:opacity .18s, transform .18s, visibility .18s}
+.nav__menu::before{content:""; position:absolute; left:0; right:0; top:-14px; height:14px}
+.nav__dd:hover .nav__menu,.nav__dd:focus-within .nav__menu{opacity:1; visibility:visible; transform:translate(-50%,8px)}
+.nav .nav__menu a{padding:9px 12px; border-radius:10px; font-size:.9rem; white-space:nowrap}
+.nav .nav__menu a.nav__menu-all{margin-top:4px; border-top:1px solid var(--line-soft); border-radius:0 0 10px 10px; color:var(--brand-deep); font-weight:700}
+.drawer__sub{display:grid; padding:4px 0 10px 12px; border-bottom:1px solid var(--line-soft)}
+.drawer__sub a{padding:9px 14px; border-radius:10px; font-size:.94rem; font-weight:600; color:var(--body)}
+.drawer__sub a:active{background:var(--bg-alt)}
